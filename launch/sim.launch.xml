@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+  <!-- Essential parameters -->
+  <arg name="map_path" default="/home/rohan/carla_maps/ASU_polycampus" description="point cloud and lanelet2 map directory path"/>
+  <arg name="vehicle_model" default="sample_vehicle" description="vehicle model name"/>
+
+  <!-- Global parameters -->
+  <arg name="use_sim_time" default="true" description="use_sim_time"/>
+  <!-- Map -->
+  <arg name="lanelet2_map_file" default="lanelet2_map.osm" description="lanelet2 map file name"/>
+  <arg name="pointcloud_map_file" default="pointcloud_map.pcd" description="pointcloud map file name"/>
+  <!-- Tools -->
+  <arg name="rviz" default="true" description="launch rviz"/>
+  <arg name="rviz_config" default="$(find-pkg-share sim_launch)/rviz/sim.rviz" description="rviz config"/>
+
+  <!-- Static TF for base_link -->
+  <!-- Groundtruth Localization -->
+  <node pkg="tf2_ros" name="egovehicle_to_base_link_transform" exec="static_transform_publisher" args="0 0 0 0 0 0 ego_vehicle base_link"/>
+  
+  <!-- Vehicle -->
+  <include file="$(find-pkg-share vehicle_launch)/launch/vehicle.launch.xml">
+    <arg name="vehicle_model" value="$(var vehicle_model)"/>
+  </include>
+
+
+  <!-- Map -->
+  <include file="$(find-pkg-share sim_launch)/launch/components/map_component.launch.xml"/>
+
+  <!-- Tools -->
+  <group>
+    <node pkg="rviz2" exec="rviz2" name="rviz2" output="screen" args="-d $(var rviz_config)"/>
+  </group>
+</launch>
