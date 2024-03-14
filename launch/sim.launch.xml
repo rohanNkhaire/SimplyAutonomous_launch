@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
   <!-- Essential parameters -->
-  <arg name="map_path" default="/home/rohan/carla_maps/ASU_polycampus" description="point cloud and lanelet2 map directory path"/>
+  <arg name="map_path"  description="point cloud and lanelet2 map directory path"/>
   <arg name="vehicle_model" default="sample_vehicle" description="vehicle model name"/>
 
   <!-- Global parameters -->
@@ -15,7 +15,7 @@
 
   <!-- Static TF for base_link -->
   <!-- Groundtruth Localization -->
-  <node pkg="tf2_ros" name="egovehicle_to_base_link_transform" exec="static_transform_publisher" args="0 0 0 0 0 0 ego_vehicle base_link"/>
+  <!--<node pkg="tf2_ros" name="egovehicle_to_base_link_transform" exec="static_transform_publisher" args="0 0 0 0 0 0 ego_vehicle base_link"/>-->
   
   <!-- Vehicle -->
   <include file="$(find-pkg-share vehicle_launch)/launch/vehicle.launch.xml">
